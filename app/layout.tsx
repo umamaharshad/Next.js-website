@@ -1,7 +1,9 @@
 import "./globals.css";
 import Navbar from "../Components/Navbar";
 import Hero from "../Components/Hero/Hero";
+import { CartProvider } from "./context/CartContext";
 import Footer from "@/Components/Footer/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,13 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className="bg-gray-50 text-gray-900">
         <Navbar />
         <Hero/>
+        <CartProvider>
         <main className="p-6">{children}</main>
+        </CartProvider>
         <Footer/>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

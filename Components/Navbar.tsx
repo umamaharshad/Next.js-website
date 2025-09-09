@@ -2,6 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+} from "@clerk/nextjs";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -37,14 +43,18 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right: Sign Up Button */}
+        {/* Right: Auth Buttons */}
         <div>
-          <Link
-            href="/signup"
-            className="bg-white text-stone-800 px-4 py-2 rounded hover:bg-stone-200 transition font-medium"
-          >
-            Sign Up
-          </Link>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton>
+              <button className="bg-white text-stone-800 px-4 py-2 rounded hover:bg-stone-200 transition font-medium">
+                Sign In
+              </button>
+            </SignInButton>
+          </SignedOut>
         </div>
       </div>
     </nav>
